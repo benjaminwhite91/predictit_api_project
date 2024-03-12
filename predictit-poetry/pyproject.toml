@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "predictit-poetry"
+version = "0.1.0"
+description = ""
+authors = ["bdubs1991 <36580462+bdubs1991@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+boto3 = "^1.34.59"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
