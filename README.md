@@ -1,0 +1,1 @@
+For this project I pulling data from Predictit.com, a gambling site using an API. I am then storing it into a OLAP database. The goal of this is to practice pulling data from an API automatically and show I can pull data that is useful to *do* something with. 
