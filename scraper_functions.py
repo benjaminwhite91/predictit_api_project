@@ -1,6 +1,9 @@
 import requests
 import boto3
 import polars as pl 
+import os
+from datetime import datetime
+from io import StringIO
 
 def predictit_scraper(url):
     print('start running')
@@ -30,12 +33,15 @@ def json_parser(json_data):
 
 def json_to_csv(parsed_json):
     data_frame = pl.DataFrame(parsed_json)
-    data_frame.write_csv('STORAGE LOCATION HERE',separator=',')
+    csv = data_frame.write_csv()
+    return csv
 
 
-def s3_upload(file_name,bucket):
-    s3 = boto3.client('s3')
-    s3.upload_file(file_name,bucket,f"predictit/{file_name}")
-    print('file uploaded')
-
+def s3_upload(file,bucket):
+    file_name = datetime.now().strftime("predictit_data_%Y-%m-%d_%H-%M.csv")
+    s3 = boto3.client('s3' 
+                       ,aws_access_key_id=os.environ['aws_access_key_id']
+                       ,aws_secret_access_key=os.environ['aws_secret_access_key'])
+    resp = s3.put_object(Bucket=bucket,Key=f"predictit/{file_name}",Body=file)
+    return resp
 
